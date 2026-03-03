@@ -189,18 +189,19 @@
 
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
-      max-width: 900px;
+      max-width: 800px;
       margin: 0 auto;
     }
 
     a.service-card {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       background: var(--dark-card);
       border: 1px solid var(--dark-border);
-      padding: 2.5rem 2rem;
-      text-align: center;
+      padding: 2.25rem 2rem;
       text-decoration: none;
       color: inherit;
       transition: all 0.3s;
@@ -212,84 +213,61 @@
       transform: translateY(-4px);
     }
 
-    .service-icon {
-      margin-bottom: 1rem;
-    }
-
-    .service-icon svg {
-      width: 48px;
-      height: 48px;
-      stroke: var(--gold);
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
+    .service-card .service-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.75rem;
     }
 
     .service-card h3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.3rem;
-      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+
+    .service-card .service-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
       color: var(--gold);
     }
 
     .service-card p {
       color: var(--text-muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       line-height: 1.7;
     }
 
-    .service-price {
+    .service-card .service-tag {
       display: inline-block;
       margin-top: 1rem;
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: var(--text);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      border: 1px solid rgba(197, 165, 90, 0.3);
+      padding: 0.25rem 0.75rem;
     }
 
-    /* HOUSE CALLS */
-    #housecalls {
-      background: linear-gradient(180deg, var(--dark) 0%, #0D0D0D 100%);
-    }
-
-    .housecall-banner {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-      padding: 3rem 2rem;
-      border: 1px solid var(--gold);
+    /* PHOTO BREAK */
+    .photo-break {
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       position: relative;
     }
 
-    .housecall-banner::before {
+    .photo-break::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(197, 165, 90, 0.05), transparent);
-      pointer-events: none;
+      background: rgba(10, 10, 10, 0.55);
     }
 
-    .housecall-price {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-
-    .housecall-label {
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-bottom: 1rem;
-    }
-
-    .housecall-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      max-width: 450px;
-      margin: 0 auto 2rem;
-      line-height: 1.8;
+    @media (max-width: 768px) {
+      .photo-break { background-attachment: scroll; height: 200px; }
     }
 
     /* ABOUT */
@@ -397,8 +375,6 @@
 
       .services-grid { grid-template-columns: 1fr; }
 
-      .housecall-price { font-size: 2.75rem; }
-
       section { padding: 4rem 1.25rem; }
     }
   </style>
@@ -413,7 +389,6 @@
     </button>
     <ul class="nav-links">
       <li><a href="#services" onclick="closeMenu()">Services</a></li>
-      <li><a href="#housecalls" onclick="closeMenu()">House Calls</a></li>
       <li><a href="#about" onclick="closeMenu()">About</a></li>
       <li><a href="#book" onclick="closeMenu()">Book Now</a></li>
     </ul>
@@ -434,37 +409,50 @@
     <p class="section-subtitle">Clean cuts, sharp lines, every time.</p>
     <div class="services-grid">
       <a href="#book" class="service-card fade-in">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
-        <h3>Haircut</h3>
-        <p>Precision cuts tailored to your style. Fades, tapers, and blends done right.</p>
+        <div>
+          <div class="service-header">
+            <h3>Haircut</h3>
+            <span class="service-price">$40</span>
+          </div>
+          <p>Fades, tapers, blowouts, comb overs, lineups, and blends. Tell me what you want and I'll make it happen.</p>
+        </div>
+        <span class="service-tag">Most Popular</span>
       </a>
       <a href="#book" class="service-card fade-in">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M12 2v6"/><path d="M8 8h8l-1 8H9L8 8z"/><path d="M10 16v4"/><path d="M14 16v4"/></svg></div>
-        <h3>Beard Trim</h3>
-        <p>Sharp lineups and sculpted beards to complement your cut.</p>
+        <div>
+          <div class="service-header">
+            <h3>Kids Cut</h3>
+            <span class="service-price">$35</span>
+          </div>
+          <p>Same precision, same quality. Clean cuts for the little ones. Ages 12 and under.</p>
+        </div>
+        <span class="service-tag">Ages 12 &amp; Under</span>
       </a>
       <a href="#book" class="service-card fade-in">
-        <div class="service-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <h3>Full Service</h3>
-        <p>Haircut, beard trim, and lineup. The complete experience.</p>
+        <div>
+          <div class="service-header">
+            <h3>Beard &amp; Cut</h3>
+            <span class="service-price">$50</span>
+          </div>
+          <p>The full package. Haircut plus a beard trim, shape-up, and razor lineup. Walk out looking right.</p>
+        </div>
+        <span class="service-tag">Full Service</span>
+      </a>
+      <a href="#book" class="service-card fade-in">
+        <div>
+          <div class="service-header">
+            <h3>House Call</h3>
+            <span class="service-price">$100</span>
+          </div>
+          <p>I come to you. Home, office, hotel, event — anywhere in Vacaville and surrounding areas. Full service included.</p>
+        </div>
+        <span class="service-tag">Mobile</span>
       </a>
     </div>
   </section>
 
-  <!-- HOUSE CALLS -->
-  <section id="housecalls">
-    <h2 class="section-title">House <span>Calls</span></h2>
-    <div class="divider"></div>
-    <p class="section-subtitle">The barbershop comes to you.</p>
-    <div class="housecall-banner fade-in">
-      <div class="housecall-price">$100</div>
-      <div class="housecall-label">Mobile Service</div>
-      <p class="housecall-desc">
-        Skip the wait. Get a premium cut from the comfort of your home, office, or wherever you need it. Vacaville and surrounding areas.
-      </p>
-      <a href="#book" class="hero-cta">Book a House Call</a>
-    </div>
-  </section>
+  <!-- PHOTO BREAK -->
+  <div class="photo-break" style="background-image:url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1400&q=80')"></div>
 
   <!-- ABOUT -->
   <section id="about">
@@ -472,10 +460,20 @@
     <div class="divider"></div>
     <div class="about-content fade-in">
       <p>
-        Vacaville's go-to for sharp fades and seamless blends. Jon Gotti Blendz delivers precision craftsmanship and a premium experience with every cut. Whether you come to the chair or the chair comes to you, expect nothing but the best.
+        Based right here in Vacaville, California. Jon Gotti Blendz is all about precision, consistency, and making sure every client walks out looking and feeling their best.
       </p>
+      <p>
+        Whether it's a sharp skin fade, a clean taper, or a full beard shape-up — every cut gets the same attention to detail. No rushing, no shortcuts. I take my time because your look matters.
+      </p>
+      <p>
+        Don't feel like coming to the shop? No problem. I offer house calls anywhere in Vacaville, Fairfield, Dixon, Davis, and the surrounding Solano County area. Same quality, your location.
+      </p>
+      <a href="#book" class="hero-cta" style="animation:none;">Book Your Appointment</a>
     </div>
   </section>
+
+  <!-- PHOTO BREAK 2 -->
+  <div class="photo-break" style="background-image:url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=1400&q=80')"></div>
 
   <!-- BOOK / CONTACT -->
   <section id="book">
@@ -485,7 +483,7 @@
     <div class="contact-grid">
       <div class="contact-card fade-in">
         <h3>Call / Text</h3>
-        <a href="tel:+1XXXXXXXXXX">(XXX) XXX-XXXX</a>
+        <a href="tel:+17078805295">(707) 880-5295</a>
         <p style="margin-top:0.5rem;">Call or text to book</p>
       </div>
       <div class="contact-card fade-in">
